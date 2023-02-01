@@ -11,17 +11,16 @@ export class ParserController {
   ) {}
 
   @Post()
-  parse(@Body() data: Latex) {
-    this.logger.debug("request: /parse, POST")
-    return {"result" : this.parserService.parse(data)};
+  async parse(@Body() data: Latex) {
+    this.logger.debug('request: /parse, POST')
+    return {'result' : await this.parserService.parse(data)};
   }
-  
-  // @Get(':data')
-  // parse(@Param('data') data: string) {
-  //   const latex:Latex = { content: data }
-  //   const result:string = this.parserService.parse(latex);
-  //   return { stausCode: 200, "result": result};
-  // }
-  
+
+  @Get()
+  async parseTest() {
+    this.logger.debug('request: /parse2, GET')
+    const data:Latex = { content: 'e^{x} + \sin{\left(\pi x right)}'}
+    return {'result' : await this.parserService.parse(data)};
+  }
 
 }
