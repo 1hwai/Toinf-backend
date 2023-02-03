@@ -5,22 +5,19 @@ import { Logger } from '@nestjs/common';
 
 @Controller('parse')
 export class ParserController {
-  private readonly logger = new Logger(ParserService.name)
+  private readonly logger = new Logger(ParserService.name);
+
   constructor(
     private readonly parserService: ParserService,
   ) {}
 
   @Post()
   async parse(@Body() data: Latex) {
-    this.logger.log('request: /parse, POST')
-    return {'result' : await this.parserService.parse(data)};
-  }
-
-  @Get()
-  async parseTest() {
-    this.logger.log('request: /parse2, GET')
-    const data:Latex = { content: 'e^{x} + \sin{\left(\pi x \right)}'}
-    return {'result' : await this.parserService.parse(data)};
+    this.logger.log('request: /parse, POST');
+    this.logger.debug('data: ' + data.content);
+    const result = await this.parserService.parse(data);
+    this.logger.debug('result: ' + result);
+    return {'result' : result};
   }
 
 }

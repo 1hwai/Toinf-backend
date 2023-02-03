@@ -8,14 +8,7 @@ export class ParserService {
 
     async parse(data: Latex): Promise<string> {
         const result = await this.execute(data);
-        this.logger.debug('result: ' + result.toString())
         return result.toString();
-    }
-
-    filterSlash(res: string): string {
-        
-
-        return res
     }
 
     execute(data: Latex): Promise<any> {
