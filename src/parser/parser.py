@@ -2,16 +2,20 @@ from latex2sympy2 import latex2sympy, latex2latex
 import sympy as smp
 import sys
 
-tex = r"\frac" + str(sys.argv[1][1:-1])
+string = str(sys.argv[1][1:-1])
 
+def parse(string):
+  string = repr(string).strip("'")
 
-# tex = r"\frac{d}{dx}(x^{2}+x)"
-# # Or you can use '\mathrm{d}' to replace 'd'
-x = smp.symbols('x', real=True)
-f = latex2sympy(tex)
+  partial_string = string.split("\\\\")
 
-# # => "Derivative(x**2 + x, x)"
-# latex2latex(tex)
-# # => "2 x + 1"
+  partial_newString = []
+  for ps in partial_string:
+    if (len(ps) == 0):
+      partial_newString.append("\\")
+    else: partial_newString.append(ps)
 
-print(smp.latex(f), end='')
+  string = "".join(partial_newString)
+  return string
+
+print(parse(string), end='')

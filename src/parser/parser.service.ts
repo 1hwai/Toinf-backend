@@ -8,13 +8,17 @@ export class ParserService {
 
     async parse(data: Latex): Promise<string> {
         const result = await this.execute(data);
-        // const result = await this.execute('python', ['src/parser/parser.py', JSON.stringify(data)]);
+        this.logger.debug('result: ' + result.toString())
         return result.toString();
     }
 
-    // execute(...command: any[]): Promise<any> {
+    filterSlash(res: string): string {
+        
+
+        return res
+    }
+
     execute(data: Latex): Promise<any> {
-        // let p = spawn(command[0], [command.slice(1)[0], command.slice(1)[1]]);
         const p = spawn('python', ['src/parser/parser.py', JSON.stringify(data.content)])
         return new Promise((resolve) => {
             p.stdout.on("data", res => {

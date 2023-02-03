@@ -12,14 +12,14 @@ export class ParserController {
 
   @Post()
   async parse(@Body() data: Latex) {
-    this.logger.debug('request: /parse, POST')
+    this.logger.log('request: /parse, POST')
     return {'result' : await this.parserService.parse(data)};
   }
 
   @Get()
   async parseTest() {
-    this.logger.debug('request: /parse2, GET')
-    const data:Latex = { content: 'e^{x} + \sin{\left(\pi x right)}'}
+    this.logger.log('request: /parse2, GET')
+    const data:Latex = { content: 'e^{x} + \sin{\left(\pi x \right)}'}
     return {'result' : await this.parserService.parse(data)};
   }
 
