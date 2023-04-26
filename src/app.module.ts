@@ -4,14 +4,8 @@ import { AppService } from './app.service';
 import { ParserModule } from './parser/parser.module';
 
 @Module({
-  imports: [
-    ParserModule
-  ],
-  controllers: [
-    AppController,
-  ],
-  providers: [
-    AppService,
-  ],
+  imports: [ParserModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
