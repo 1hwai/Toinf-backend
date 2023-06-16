@@ -14,5 +14,4 @@ export class AppController {
   getBye(): string {
     return this.appService.getHello();
   }
-  
 }

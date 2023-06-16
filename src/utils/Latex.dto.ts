@@ -1,3 +1,3 @@
 export class Latex {
-   content: string;
+  content: string;
 }

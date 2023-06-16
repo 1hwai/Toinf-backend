@@ -7,9 +7,7 @@ import { Logger } from '@nestjs/common';
 export class ParserController {
   private readonly logger = new Logger(ParserService.name);
 
-  constructor(
-    private readonly parserService: ParserService,
-  ) {}
+  constructor(private readonly parserService: ParserService) {}
 
   @Post()
   async parse(@Body() data: Latex) {
@@ -17,7 +15,6 @@ export class ParserController {
     this.logger.debug('data: ' + data.content);
     const result = await this.parserService.parse(data);
     this.logger.debug('result: ' + result);
-    return {'result' : result};
+    return { result: result };
   }
-
 }
