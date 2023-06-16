@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
-import { Latex } from './Latex.dto';
+import { Latex } from '../utils/Latex.dto';
 import { ParserService } from './parser.service';
 import { Logger } from '@nestjs/common';
 

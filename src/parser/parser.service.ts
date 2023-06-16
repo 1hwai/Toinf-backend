@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Latex } from './Latex.dto';
+import { Latex } from '../utils/Latex.dto';
 import { spawn } from 'child_process';
 
 @Injectable()
@@ -12,11 +12,11 @@ export class ParserService {
     }
 
     execute(data: Latex): Promise<any> {
-        const p = spawn('python', ['src/parser/parser.py', JSON.stringify(data.content)])
+        const p = spawn('python', ['src/utils/parser.py', JSON.stringify(data.content)])
         return new Promise((resolve) => {
             p.stdout.on("data", res => {
                 resolve(res.toString())
-                if (res === null || res.toString() === '') {
+                if (res.toString() === '') {
                     this.logger.warn('Error: parser result is null');
                 }
             });

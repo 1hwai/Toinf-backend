@@ -12,7 +12,7 @@ def parse(string):
   partial_newString = []
   for ps in partial_string:
     if (len(ps) == 0):
-      partial_newString.append("\\")
+      partial_newString.append('\\')
     else: partial_newString.append(ps)
 
   string = "".join(partial_newString)
