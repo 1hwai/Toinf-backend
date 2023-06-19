@@ -10,16 +10,13 @@ export class DerivativeService {
 
     public async derivative(data: CalculusDto): Promise<CalculusDto> {
         const ddx: CalculusDto = data;
-        const parsed = await parse({'content': ddx.latex});
-        this.logger.debug('D: parsed ' + parsed);
-        console.log()
-        const result = await this.execute({'content': parsed});
-        ddx.latex = result;
+        ddx.latex = await this.execute({'content': data.latex});
         return ddx;
     }
 
     private execute(data: Latex): Promise<any> {
-        const p = spawn('python', ['src/derivative/derivative.py', JSON.stringify(data.content)])
+        console.log('0619 check: ' + data.content);
+        const p = spawn('python', ['src/derivative/derivative.py', data.content])
         return new Promise((resolve) => {
             p.stdout.on('data', res => {
                 resolve(res.toString());
@@ -27,7 +24,7 @@ export class DerivativeService {
                     this.logger.warn('Error while processing a Derivative');
                 }
             });
-            p.stderr.on('data', x=> {
+            p.stderr.on('data', x => {
                 this.logger.warn('Error : Derivative', x);
             })
         });
