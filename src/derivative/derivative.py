@@ -1,14 +1,12 @@
+import latex2sympy2
 from latex2sympy2 import latex2sympy, latex2latex
 import sympy as smp
 import sys
+import numpy as np
 
 from sympy import exp
 
 string = str(sys.argv[1][1:-1])
-
-sympy_dict = {
-  'exp(x)': smp.exp
-}
 
 def derivative(latex):
   partial_latex = string.split("\\")
@@ -20,12 +18,11 @@ def derivative(latex):
     else: partial_newLatex.append(ps)
 
   latex = "".join(partial_newLatex)
+  f = latex2sympy(latex)
 
   x = smp.symbols('x', real=True)
-  f = latex2sympy(latex)
-  smp.sympify(f, locals=sympy_dict)
-  dfdx = smp.diff(f, x)
-  print('dfdx',dfdx)
+#   dfdx = smp.diff(f, f.args[0])
+  dfdx = f.diff()
   return smp.latex(dfdx)
 
 print(derivative(string), end='')
