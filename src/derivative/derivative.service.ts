@@ -9,14 +9,12 @@ export class DerivativeService {
     private readonly logger = new Logger(DerivativeService.name);
 
     public async derivative(data: CalculusDto): Promise<CalculusDto> {
-        const ddx: CalculusDto = data;
-        ddx.latex = await this.execute({'content': data.latex});
-        return ddx;
+        data.latex = await this.execute(data.latex)
+        return data;
     }
 
-    private execute(data: Latex): Promise<any> {
-        console.log('0619 check: ' + data.content);
-        const p = spawn('python', ['src/derivative/derivative.py', data.content])
+    private execute(latex: string): Promise<string> {
+        const p = spawn('python', ['src/derivative/derivative.py', latex])
         return new Promise((resolve) => {
             p.stdout.on('data', res => {
                 resolve(res.toString());

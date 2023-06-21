@@ -20,12 +20,11 @@ def getParsed(latex):
   latex2sympy2.set_real(True)
   return latex2sympy2.latex2sympy(latex)
 
-def derivative(latex):
+def integrate(latex):
   f = getParsed(latex)
 
   x = smp.symbols('x', real=True)
-#   dfdx = smp.diff(f, f.args[0])
-  dfdx = f.diff()
+  dfdx = f.integrate()
   return smp.latex(dfdx)
 
-print(derivative(string), end='')
+print(integrate(string), end='')
